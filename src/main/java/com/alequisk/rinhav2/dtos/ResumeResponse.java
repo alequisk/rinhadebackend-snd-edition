@@ -1,4 +1,4 @@
-package com.alequisk.rinhav2.dtos.transactions;
+package com.alequisk.rinhav2.dtos;
 
 import com.alequisk.rinhav2.domain.Transaction;
 
@@ -8,12 +8,12 @@ import java.util.List;
 
 public record ResumeResponse(
     Saldo saldo,
-    List<Transacao> ultimasTransacoes
+    List<Transacao> ultimas_transacoes
 ) {
 
     record Saldo(
             BigInteger total,
-            LocalDateTime dataExtrato,
+            LocalDateTime data_extrato,
             BigInteger limite
     ) {}
 
@@ -21,7 +21,7 @@ public record ResumeResponse(
             BigInteger valor,
             Character tipo,
             String descricao,
-            LocalDateTime realizadaEm
+            LocalDateTime realizada_em
     ) {
         public static Transacao from(Transaction transaction) {
             return new Transacao(transaction.getValue(), transaction.getType(), transaction.getDescription(), transaction.getCreatedAt());
