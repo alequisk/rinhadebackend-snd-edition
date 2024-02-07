@@ -14,7 +14,7 @@ public class Client {
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "credit_limit")
     private BigInteger limit;
 
     @Column(nullable = false)
@@ -44,7 +44,7 @@ public class Client {
         this.balance = balance;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     Set<Transaction> transactions = new HashSet<>();
 
     public void addTransaction(Transaction transaction) throws InsufficientCreditTransactionException {
@@ -59,6 +59,7 @@ public class Client {
             newBalance = this.balance.add(transaction.getValue());
         }
         this.balance = newBalance;
+        transaction.setClient(this);
         this.transactions.add(transaction);
     }
 }

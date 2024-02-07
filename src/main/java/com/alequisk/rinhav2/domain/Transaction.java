@@ -1,6 +1,7 @@
 package com.alequisk.rinhav2.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -23,7 +24,20 @@ public class Transaction {
     private String description;
 
     @Column(nullable = false, name = "created_at", updatable = false, columnDefinition = "TIMESTAMP")
+    @CreatedDate
     private LocalDateTime createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Long getId() {
         return id;
