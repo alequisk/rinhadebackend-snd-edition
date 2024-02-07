@@ -20,6 +20,9 @@ public class Client {
     @Column(nullable = false)
     private BigInteger balance;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.MERGE)
+    Set<Transaction> transactions = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -43,9 +46,6 @@ public class Client {
     public void setBalance(BigInteger balance) {
         this.balance = balance;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    Set<Transaction> transactions = new HashSet<>();
 
     public void addTransaction(Transaction transaction) throws InsufficientCreditTransactionException {
         var newBalance = this.balance;

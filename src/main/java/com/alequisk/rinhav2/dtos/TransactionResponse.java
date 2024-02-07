@@ -1,4 +1,4 @@
-package com.alequisk.rinhav2.dtos.transactions;
+package com.alequisk.rinhav2.dtos;
 
 import jakarta.validation.constraints.NotNull;
 

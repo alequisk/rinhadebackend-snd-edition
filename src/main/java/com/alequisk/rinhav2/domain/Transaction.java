@@ -1,6 +1,7 @@
 package com.alequisk.rinhav2.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigInteger;
@@ -23,7 +24,9 @@ public class Transaction {
     @Column(nullable = false, length = 10)
     private String description;
 
-    @Column(nullable = false, name = "created_at", updatable = false, columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
     @CreatedDate
     private LocalDateTime createdAt;
 

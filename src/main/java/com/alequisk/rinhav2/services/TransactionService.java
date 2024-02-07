@@ -2,12 +2,13 @@ package com.alequisk.rinhav2.services;
 
 import com.alequisk.rinhav2.domain.Client;
 import com.alequisk.rinhav2.domain.Transaction;
-import com.alequisk.rinhav2.dtos.transactions.ResumeResponse;
-import com.alequisk.rinhav2.dtos.transactions.TransactionRequest;
-import com.alequisk.rinhav2.dtos.transactions.TransactionResponse;
+import com.alequisk.rinhav2.dtos.ResumeResponse;
+import com.alequisk.rinhav2.dtos.TransactionRequest;
+import com.alequisk.rinhav2.dtos.TransactionResponse;
 import com.alequisk.rinhav2.exceptions.ClientNotFoundException;
 import com.alequisk.rinhav2.repositories.ClientsRepository;
 import com.alequisk.rinhav2.repositories.TransactionsRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class TransactionService {
         this.clientsRepository = clientsRepository;
     }
 
+    @Transactional
     public TransactionResponse createTransaction(TransactionRequest request, Long clientId) {
         Client client = clientsRepository.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
         Transaction transaction = new Transaction();
